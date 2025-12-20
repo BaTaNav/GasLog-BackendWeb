@@ -10,3 +10,5 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   res.json({ message: 'create fuel entry' });
 });
+
+export default router;
