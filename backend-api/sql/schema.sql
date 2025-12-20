@@ -35,3 +35,8 @@ CREATE TABLE fuel_entries (
         REFERENCES users(id)
         ON DELETE CASCADE
 );
+
+-- INDEXEN
+CREATE INDEX idx_fuel_entries_car_id ON fuel_entries(car_id);
+CREATE INDEX idx_fuel_entries_user_id ON fuel_entries(user_id);
+CREATE INDEX idx_fuel_entries_date ON fuel_entries(date);
