@@ -42,3 +42,15 @@ export const createUser = async (req, res) => {
     res.status(500).json({ error: 'Database error' });
   }
 };
+
+// DELETE /users/:id
+export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await pool.query('DELETE FROM users WHERE id = $1 RETURNING id', [id]);
+    if (result.rows.length === 0) return res.status(404).json({ error: 'User not found' });
+    res.json({ message: 'User deleted', id });
+  } catch (err) {
+    res.status(500).json({ error: 'Database error' });
+  }
+};
