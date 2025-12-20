@@ -5,3 +5,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
   res.json({ message: 'list fuel entries' });
 });
+
+// Voorbeeld: nieuwe tankbeurt aanmaken
+router.post('/', (req, res) => {
+  res.json({ message: 'create fuel entry' });
+});
