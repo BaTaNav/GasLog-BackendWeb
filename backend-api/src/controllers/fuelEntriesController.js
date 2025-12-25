@@ -181,3 +181,24 @@ export const updateFuelEntry = async (req, res) => {
     res.status(500).json({ error: 'Database error' });
   }
 };
+
+
+// DELETE /fuel/:id
+export const deleteFuelEntry = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query(
+      'DELETE FROM fuel_entries WHERE id = $1 RETURNING id',
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Fuel entry not found' });
+    }
+
+    res.json({ message: 'Fuel entry deleted', id });
+  } catch (err) {
+    res.status(500).json({ error: 'Database error' });
+  }
+};
