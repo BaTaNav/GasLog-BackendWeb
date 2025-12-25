@@ -10,14 +10,10 @@ import {
   deleteFuelEntry
 } from '../controllers/fuelEntriesController.js';
 
-// Voorbeeld: lijst van tankbeurten
-router.get('/', (req, res) => {
-  res.json({ message: 'list fuel entries' });
-});
-
-// Voorbeeld: nieuwe tankbeurt aanmaken
-router.post('/', (req, res) => {
-  res.json({ message: 'create fuel entry' });
-});
+router.get('/', getAllFuelEntries);
+router.get('/:id', getFuelEntryById);
+router.post('/', createFuelEntry);
+router.put('/:id', updateFuelEntry);
+router.delete('/:id', deleteFuelEntry);
 
 export default router;
