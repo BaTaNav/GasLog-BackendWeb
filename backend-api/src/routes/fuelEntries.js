@@ -1,6 +1,15 @@
 import express from 'express';
 const router = express.Router();
 
+import express from 'express';
+import {
+  getAllFuelEntries,
+  getFuelEntryById,
+  createFuelEntry,
+  updateFuelEntry,
+  deleteFuelEntry
+} from '../controllers/fuelEntriesController.js';
+
 // Voorbeeld: lijst van tankbeurten
 router.get('/', (req, res) => {
   res.json({ message: 'list fuel entries' });
