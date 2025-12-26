@@ -8,10 +8,37 @@ const isNumber = (value) => typeof value === 'number' && !isNaN(value);
 export const getAllFuelEntries = async (req, res) => {
   const limit = req.query.limit ? Number(req.query.limit) : 10;
   const offset = req.query.offset ? Number(req.query.offset) : 0;
+  const { user_id, car_id, date } = req.query;
 
   if (isNaN(limit) || isNaN(offset) || limit <= 0 || offset < 0) {
     return res.status(400).json({ error: 'Invalid limit or offset' });
   }
+
+  let whereClauses = [];
+  let values = [];
+  let idx = 1;
+
+  if (user_id) {
+    whereClauses.push(`user_id = $${idx++}`);
+    values.push(Number(user_id));
+  }
+
+  if (car_id) {
+    whereClauses.push(`car_id = $${idx++}`);
+    values.push(Number(car_id));
+  }
+
+  if (date) {
+    whereClauses.push(`date = $${idx++}`);
+    values.push(date);
+  }
+
+  let whereSQL = '';
+  if (whereClauses.length > 0) {
+    whereSQL = `WHERE ${whereClauses.join(' AND ')}`;
+  }
+
+  values.push(limit, offset);
 
   try {
     const result = await pool.query(
@@ -27,13 +54,15 @@ export const getAllFuelEntries = async (req, res) => {
         (liters * price_per_liter) AS total_amount,
         created_at
       FROM fuel_entries
+      ${whereSQL}
       ORDER BY date DESC
-      LIMIT $1 OFFSET $2
+      LIMIT $${idx++} OFFSET $${idx}
       `,
-      [limit, offset]
+      values
     );
 
     res.json({
+      filters: { user_id, car_id, date },
       limit,
       offset,
       count: result.rows.length,
@@ -44,6 +73,7 @@ export const getAllFuelEntries = async (req, res) => {
     res.status(500).json({ error: 'Database error' });
   }
 };
+
 
 // GET /fuel/:id
 export const getFuelEntryById = async (req, res) => {
