@@ -6,8 +6,16 @@ const isNumber = (value) => typeof value === 'number' && !isNaN(value);
 
 // GET /fuel
 export const getAllFuelEntries = async (req, res) => {
+  const limit = req.query.limit ? Number(req.query.limit) : 10;
+  const offset = req.query.offset ? Number(req.query.offset) : 0;
+
+  if (isNaN(limit) || isNaN(offset) || limit <= 0 || offset < 0) {
+    return res.status(400).json({ error: 'Invalid limit or offset' });
+  }
+
   try {
-    const result = await pool.query(`
+    const result = await pool.query(
+      `
       SELECT 
         id,
         car_id,
@@ -20,8 +28,17 @@ export const getAllFuelEntries = async (req, res) => {
         created_at
       FROM fuel_entries
       ORDER BY date DESC
-    `);
-    res.json(result.rows);
+      LIMIT $1 OFFSET $2
+      `,
+      [limit, offset]
+    );
+
+    res.json({
+      limit,
+      offset,
+      count: result.rows.length,
+      data: result.rows
+    });
   } catch (err) {
     console.error('DB error:', err);
     res.status(500).json({ error: 'Database error' });
