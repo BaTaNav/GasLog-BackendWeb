@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GasLog API Documentation</title>
+</head>
+<body>
+  <h1>GasLog API Documentation</h1>
+
+  <h2>Users Endpoints</h2>
+
+  <h3>GET /users</h3>
+  <p>Haalt een lijst van alle gebruikers op.</p>
+  <p><strong>Response voorbeeld:</strong></p>
+  <pre>[
+  {
+    "id": 1,
+    "username": "broer",
+    "created_at": "2025-12-25T10:00:00.000Z"
+  }
+]</pre>
+
+  <h3>GET /users/:id</h3>
+  <p>Haalt de details van een specifieke gebruiker op door ID.</p>
+  <p><strong>URL parameter:</strong> <code>id</code> (integer)</p>
+
+  <h3>POST /users</h3>
+  <p>Voegt een nieuwe gebruiker toe. Het wachtwoord wordt gehashed opgeslagen.</p>
+  <p><strong>Body JSON:</strong></p>
+  <pre>{
+  "username": "broer",
+  "password": "1234"
+}</pre>
+
+  <h3>PUT /users/:id</h3>
+  <p>Update een bestaande gebruiker. Kan username of password aanpassen.</p>
+  <p><strong>Body JSON voorbeeld:</strong></p>
+  <pre>{
+  "username": "newname",
+  "password": "newpass"
+}</pre>
+
+  <h3>DELETE /users/:id</h3>
+  <p>Verwijdert een gebruiker op basis van ID.</p>
+
+  <h2>Fuel Entries Endpoints</h2>
+
+  <h3>GET /fuel</h3>
+  <p>Haalt een lijst van alle tankbeurten op. Kan worden gefilterd en gepagineerd met query parameters.</p>
+  <p><strong>Query parameters:</strong> <code>limit</code>, <code>offset</code>, <code>user_id</code> (optioneel)</p>
+  <p><strong>Response voorbeeld:</strong></p>
+  <pre>[
+  {
+    "id": 1,
+    "car_id": 1,
+    "user_id": 3,
+    "date": "2025-01-12",
+    "liters": 42.5,
+    "price_per_liter": 1.79,
+    "odometer": 128400,
+    "total_amount": 76.075,
+    "created_at": "2025-12-25T10:23:45.390Z"
+  }
+]</pre>
+
+  <h3>GET /fuel/:id</h3>
+  <p>Haalt een specifieke fuel entry op door ID.</p>
+
+  <h3>POST /fuel</h3>
+  <p>Voegt een nieuwe fuel entry toe voor een specifieke auto en gebruiker.</p>
+  <p><strong>Body JSON voorbeeld:</strong></p>
+  <pre>{
+  "car_id": 1,
+  "user_id": 3,
+  "date": "2025-01-12",
+  "liters": 42.5,
+  "price_per_liter": 1.79,
+  "odometer": 128400
+}</pre>
+
+  <h3>PUT /fuel/:id</h3>
+  <p>Update een bestaande fuel entry. Alleen opgegeven velden worden aangepast.</p>
+  <p><strong>Body JSON voorbeeld:</strong></p>
+  <pre>{
+  "liters": 45,
+  "price_per_liter": 1.80,
+  "odometer": 128500,
+  "date": "2025-01-13"
+}</pre>
+
+  <h3>DELETE /fuel/:id</h3>
+  <p>Verwijdert een fuel entry op basis van ID.</p>
+
+  <h3>Filter & Pagination</h3>
+  <p>Je kunt fuel entries filteren op bijvoorbeeld <code>user_id</code> en pagineren met <code>limit</code> en <code>offset</code>:</p>
+  <p><strong>GET voorbeeld:</strong> <code>/fuel?user_id=3&limit=10&offset=0</code></p>
+
+</body>
+</html>
