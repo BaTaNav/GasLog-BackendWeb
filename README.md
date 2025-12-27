@@ -72,4 +72,4 @@ src/
      └─ style.css
 ```
 > [!NOTE]
-> De documentatie van de api is beschikbaar met css via live server in VS Code.
+> De documentatie van de api is beschikbaar met css via live server extension in VS Code.
