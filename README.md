@@ -131,3 +131,13 @@ Update bestaande fuel entry (partiële updates)
 - DELETE /fuel/:id
 Verwijderd een fuel entry.
 
+## Testen 
+Alle endpoints werden getest met Postman.
+- Users CRUD: OK
+- Fuel Entries: OK
+- Filters + pagination: OK
+
+## Git
+- node_modules staat in .gitignore
+- .env staat in .gitignore
+
