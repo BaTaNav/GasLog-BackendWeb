@@ -71,3 +71,5 @@ src/
      ├─ index.html
      └─ style.css
 ```
+> [!NOTE]
+> De documentatie van de api is beschikbaar met css via live server in VS Code.
