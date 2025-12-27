@@ -93,3 +93,41 @@ Maakt een nieuwe gebruiker aan. Wachtwoorden worde gehashed opgeslagen.
 Update username en/of password.
 - DELETE /users/:id
 Verwijderd een gebruiker
+
+## Fuel Entries CRUD
+
+- GET /fuel
+Lijst van fuel entries.
+Ondersteunt:
+- limit
+- offset
+- user_id (filter)
+
+Voorbeeld:
+```bash
+/fuel?user_id=3&limit=10&offset=0
+
+```
+- GET /fuel/:id
+Haalt één fuel entry op.
+
+- POST /fuel
+Maakt een fuel entry aan.
+```bash
+{
+  "car_id": 1,
+  "user_id": 3,
+  "date": "2025-01-12",
+  "liters": 42.5,
+  "price_per_liter": 1.79,
+  "odometer": 128400
+}
+
+```
+
+- PUT /fuel/:id
+Update bestaande fuel entry (partiële updates)
+
+- DELETE /fuel/:id
+Verwijderd een fuel entry.
+
