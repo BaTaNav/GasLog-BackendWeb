@@ -36,10 +36,8 @@ PORT=3000
 
  De database bevat de volgende tabellen:
 
-    -users
-
-    -cars
-
-    -fuel_entries
+- users
+- cars
+- fuel_entries
 
 SQL voor het aanmaken van de tabellen staat in het project en werd uitgevoerd op Neon.
