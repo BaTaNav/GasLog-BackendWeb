@@ -83,12 +83,12 @@ Haalt één gebruiker op.
 - POST /users
 Maakt een nieuwe gebruiker aan. Wachtwoorden worde gehashed opgeslagen.
 
-´´´bash
+```bash
 {
     "username": "your_username"
     "password": "your_password"
 }
-´´´
+```
 - PUT /users/:id
 Update username en/of password.
 - DELETE /users/:id
