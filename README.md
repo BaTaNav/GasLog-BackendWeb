@@ -41,3 +41,33 @@ PORT=3000
 - fuel_entries
 
 SQL voor het aanmaken van de tabellen staat in het project en werd uitgevoerd op Neon.
+
+## Relaties
+- Eén user kan meerdere cars hebben
+- Eén car kan meerdere fuel entries hebben
+
+## Starten van de server
+
+```bash
+node src/server.js
+```
+
+Console output:
+```bash
+Server running on port 3000
+DB connected
+```
+
+## API Documentatie
+De API-documentatie is beshikbaar via de root van het project:
+```bash
+http://localhost:3000
+```
+
+Code van de documentatie is te vinden in:
+```bash
+src/
+ └─ docs/
+     ├─ index.html
+     └─ style.css
+```
