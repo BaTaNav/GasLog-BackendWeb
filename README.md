@@ -73,3 +73,23 @@ src/
 ```
 > [!NOTE]
 > De documentatie van de api is beschikbaar met css via live server extension in VS Code.
+
+## Users CRUD 
+
+- GET /users
+Haalt alle gebruikers op.
+- GET /users/:id
+Haalt één gebruiker op.
+- POST /users
+Maakt een nieuwe gebruiker aan. Wachtwoorden worde gehashed opgeslagen.
+
+´´´bash
+{
+    "username": "your_username"
+    "password": "your_password"
+}
+´´´
+- PUT /users/:id
+Update username en/of password.
+- DELETE /users/:id
+Verwijderd een gebruiker
