@@ -130,6 +130,20 @@ export const createFuelEntry = async (req, res) => {
     return res.status(400).json({ error: 'liters and price_per_liter must be > 0' });
   }
 
+  // Validatie: datum mag niet in de toekomst zijn
+  const inputDate = new Date(date);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset tijd naar 00:00 voor vergelijking
+  
+  if (inputDate > today) {
+    return res.status(400).json({ error: 'Date cannot be in the future' });
+  }
+
+  // Validatie: odometer moet positief zijn als opgegeven
+  if (odoNum !== null && odoNum < 0) {
+    return res.status(400).json({ error: 'Odometer cannot be negative' });
+  }
+
   try {
     console.log('Creating fuel entry:', { car_id, user_id, date, litersNum, priceNum, odoNum });
     const result = await pool.query(
@@ -175,6 +189,22 @@ export const updateFuelEntry = async (req, res) => {
       (priceNum != null && (isNaN(priceNum) || priceNum <= 0)) ||
       (odoNum != null && isNaN(odoNum))) {
     return res.status(400).json({ error: 'Invalid numeric values' });
+  }
+
+  // Validatie: datum mag niet in de toekomst zijn
+  if (date) {
+    const inputDate = new Date(date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    if (inputDate > today) {
+      return res.status(400).json({ error: 'Date cannot be in the future' });
+    }
+  }
+
+  // Validatie: odometer moet positief zijn
+  if (odoNum != null && odoNum < 0) {
+    return res.status(400).json({ error: 'Odometer cannot be negative' });
   }
 
   try {
