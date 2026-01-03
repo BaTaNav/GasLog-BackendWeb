@@ -12,7 +12,17 @@
   <h2>Users Endpoints</h2>
 
   <h3>GET /users</h3>
-  <p>Haalt een lijst van alle gebruikers op.</p>
+  <p>Haalt een lijst van alle gebruikers op. Kan gesorteerd worden met query parameters.</p>
+  <p><strong>Query parameters:</strong></p>
+  <ul>
+    <li><code>sort</code> - Sorteer veld: id, username, created_at (default: id)</li>
+    <li><code>order</code> - Sorteer richting: asc, desc (default: asc)</li>
+  </ul>
+  <p><strong>GET voorbeelden:</strong></p>
+  <ul>
+    <li><code>/users?sort=username&order=asc</code> - Sorteer alfabetisch op username</li>
+    <li><code>/users?sort=created_at&order=desc</code> - Nieuwste gebruikers eerst</li>
+  </ul>
   <p><strong>Response voorbeeld:</strong></p>
   <pre>[
     {
@@ -93,8 +103,17 @@
   <h2>Fuel Entries Endpoints</h2>
 
   <h3>GET /fuel</h3>
-  <p>Haalt een lijst van alle tankbeurten op. Kan worden gefilterd en gepagineerd met query parameters.</p>
-  <p><strong>Query parameters:</strong> <code>limit</code>, <code>offset</code>, <code>user_id</code> (optioneel)</p>
+  <p>Haalt een lijst van alle tankbeurten op. Kan worden gefilterd, gesorteerd en gepagineerd met query parameters.</p>
+  <p><strong>Query parameters:</strong></p>
+  <ul>
+    <li><code>limit</code> - Aantal resultaten (default: 10)</li>
+    <li><code>offset</code> - Start positie (default: 0)</li>
+    <li><code>user_id</code> - Filter op gebruiker (optioneel)</li>
+    <li><code>car_id</code> - Filter op auto (optioneel)</li>
+    <li><code>date</code> - Filter op datum (optioneel)</li>
+    <li><code>sort</code> - Sorteer veld: date, liters, price_per_liter, odometer, total_amount, created_at (default: date)</li>
+    <li><code>order</code> - Sorteer richting: asc, desc (default: desc)</li>
+  </ul>
   <p><strong>Response voorbeeld:</strong></p>
   <pre>[
   {
@@ -140,7 +159,26 @@
 
   <h3>Filter & Pagination</h3>
   <p>Je kunt fuel entries filteren op bijvoorbeeld <code>user_id</code> en pagineren met <code>limit</code> en <code>offset</code>:</p>
-  <p><strong>GET voorbeeld:</strong> <code>/fuel?user_id=3&limit=10&offset=0</code></p>
+  <p><strong>GET voorbeelden:</strong></p>
+  <ul>
+    <li><code>/fuel?user_id=3&limit=10&offset=0</code> - Filter op user, max 10 resultaten</li>
+    <li><code>/fuel?sort=liters&order=desc</code> - Sorteer op liters, hoogste eerst</li>
+    <li><code>/fuel?car_id=1&sort=date&order=asc</code> - Filter op auto, sorteer op datum oplopend</li>
+    <li><code>/fuel?user_id=3&sort=total_amount&order=desc&limit=5</code> - Top 5 duurste tankbeurten van user 3</li>
+  </ul>
+
+  <h3>GET /users</h3>
+  <p>Haalt een lijst van alle gebruikers op. Kan gesorteerd worden met query parameters.</p>
+  <p><strong>Query parameters:</strong></p>
+  <ul>
+    <li><code>sort</code> - Sorteer veld: id, username, created_at (default: id)</li>
+    <li><code>order</code> - Sorteer richting: asc, desc (default: asc)</li>
+  </ul>
+  <p><strong>GET voorbeelden:</strong></p>
+  <ul>
+    <li><code>/users?sort=username&order=asc</code> - Sorteer alfabetisch op username</li>
+    <li><code>/users?sort=created_at&order=desc</code> - Nieuwste gebruikers eerst</li>
+  </ul>
 
 </body>
 </html>
