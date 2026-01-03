@@ -5,9 +5,21 @@ const SALT_ROUNDS = 10;
 
 // GET /users
 export const getAllUsers = async (req, res) => {
+  const { sort, order } = req.query;
+
+  // Validatie voor sorteer parameters
+  const allowedSortFields = ['id', 'username', 'created_at'];
+  const sortField = sort && allowedSortFields.includes(sort) ? sort : 'id';
+  const sortOrder = order && ['asc', 'desc'].includes(order.toLowerCase()) ? order.toUpperCase() : 'ASC';
+
   try {
-    const result = await pool.query('SELECT id, username, created_at FROM users');
-    res.json(result.rows);
+    const result = await pool.query(`SELECT id, username, created_at FROM users ORDER BY ${sortField} ${sortOrder}`);
+    res.json({
+      sort: sortField,
+      order: sortOrder,
+      count: result.rows.length,
+      data: result.rows
+    });
   } catch (err) {
     res.status(500).json({ error: 'Database error' });
   }
