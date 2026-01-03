@@ -8,11 +8,16 @@ const isNumber = (value) => typeof value === 'number' && !isNaN(value);
 export const getAllFuelEntries = async (req, res) => {
   const limit = req.query.limit ? Number(req.query.limit) : 10;
   const offset = req.query.offset ? Number(req.query.offset) : 0;
-  const { user_id, car_id, date } = req.query;
+  const { user_id, car_id, date, sort, order } = req.query;
 
   if (isNaN(limit) || isNaN(offset) || limit <= 0 || offset < 0) {
     return res.status(400).json({ error: 'Invalid limit or offset' });
   }
+
+  // Validatie voor sorteer parameters
+  const allowedSortFields = ['date', 'liters', 'price_per_liter', 'odometer', 'total_amount', 'created_at'];
+  const sortField = sort && allowedSortFields.includes(sort) ? sort : 'date';
+  const sortOrder = order && ['asc', 'desc'].includes(order.toLowerCase()) ? order.toUpperCase() : 'DESC';
 
   let whereClauses = [];
   let values = [];
@@ -55,7 +60,7 @@ export const getAllFuelEntries = async (req, res) => {
         created_at
       FROM fuel_entries
       ${whereSQL}
-      ORDER BY date DESC
+      ORDER BY ${sortField} ${sortOrder}
       LIMIT $${idx++} OFFSET $${idx}
       `,
       values
@@ -63,6 +68,8 @@ export const getAllFuelEntries = async (req, res) => {
 
     res.json({
       filters: { user_id, car_id, date },
+      sort: sortField,
+      order: sortOrder,
       limit,
       offset,
       count: result.rows.length,
