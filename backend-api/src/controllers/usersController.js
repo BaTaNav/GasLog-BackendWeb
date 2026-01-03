@@ -30,6 +30,21 @@ export const createUser = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) return res.status(400).json({ error: 'Missing fields' });
 
+  // Validatie: username moet minstens 3 tekens bevatten
+  if (username.length < 3) {
+    return res.status(400).json({ error: 'Username must be at least 3 characters long' });
+  }
+
+  // Validatie: username mag geen cijfers bevatten
+  if (/\d/.test(username)) {
+    return res.status(400).json({ error: 'Username cannot contain numbers' });
+  }
+
+  // Validatie: password moet minstens 6 tekens bevatten
+  if (password.length < 6) {
+    return res.status(400).json({ error: 'Password must be at least 6 characters long' });
+  }
+
   try {
     const hash = await bcrypt.hash(password, SALT_ROUNDS);
     const result = await pool.query(
@@ -48,6 +63,21 @@ export const updateUser = async (req, res) => {
   const { id } = req.params;
   const { username, password } = req.body;
   if (!username && !password) return res.status(400).json({ error: 'Nothing to update' });
+
+  // Validatie voor username
+  if (username) {
+    if (username.length < 3) {
+      return res.status(400).json({ error: 'Username must be at least 3 characters long' });
+    }
+    if (/\d/.test(username)) {
+      return res.status(400).json({ error: 'Username cannot contain numbers' });
+    }
+  }
+
+  // Validatie voor password
+  if (password && password.length < 6) {
+    return res.status(400).json({ error: 'Password must be at least 6 characters long' });
+  }
 
   try {
     let query = 'UPDATE users SET ';
