@@ -13,6 +13,9 @@ const __dirname = path.dirname(__filename);
 // Middleware
 app.use(express.json());
 
+// Static files voor documentatie (CSS, etc.)
+app.use(express.static(path.join(__dirname, 'docs')));
+
 // Routes
 app.use('/users', usersRouter);
 app.use('/fuel', fuelRouter);
