@@ -154,7 +154,7 @@ Tijdens de ontwikkeling van dit project zijn de volgende bronnen geraadpleegd:
 
 ### Officiële documentatie
 - [Express.js Documentation](https://expressjs.com/) - Routing, middleware en request handling
-- [Node.js Documentation](https://nodejs.org/docs/) - Core modules en ESM syntax
+- [Node.js Documentation](https://nodejs.org/docs/latest/api/) - Core modules en ESM syntax
 - [PostgreSQL Documentation](https://www.postgresql.org/docs/) - SQL queries en database design
 - [node-postgres (pg) Documentation](https://node-postgres.com/) - Database connectie en queries
 
