@@ -26,13 +26,22 @@ cd backend-api
     ```
 
 3. Environment variables
-Maak een .env bestand aan in de root:
+Maak een .env bestand aan in de root van de `backend-api` map:
 ```bash
 DATABASE_URL=postgresql://<user>:<password>@<host>/<database>
 PORT=3000
- ```
+```
 
- ## Database
+4. Database setup
+   - Maak een PostgreSQL database aan (bijvoorbeeld via [Neon.tech](https://neon.tech))
+   - Voer het database schema uit:
+     ```bash
+     # Kopieer de inhoud van backend-api/sql/schema.sql
+     # Voer dit uit in je database console (bijv. Neon SQL Editor)
+     ```
+   - Of gebruik een PostgreSQL client om het bestand uit te voeren
+
+## Database
 
  De database bevat de volgende tabellen:
 
@@ -140,4 +149,26 @@ Alle endpoints werden getest met Postman.
 ## Git
 - node_modules staat in .gitignore
 - .env staat in .gitignore
+
+## Bronvermeldingen
+
+Tijdens de ontwikkeling van dit project zijn de volgende bronnen geraadpleegd:
+
+### Officiële documentatie
+- [Express.js Documentation](https://expressjs.com/) - Routing, middleware en request handling
+- [Node.js Documentation](https://nodejs.org/docs/) - Core modules en ESM syntax
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/) - SQL queries en database design
+- [node-postgres (pg) Documentation](https://node-postgres.com/) - Database connectie en queries
+
+### Tutorials en guides
+- [MDN Web Docs - HTTP Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) - Correcte implementatie van HTTP verbs
+- [OWASP - Password Storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) - Veilige wachtwoord opslag met bcrypt
+
+### Packages
+- [bcrypt](https://www.npmjs.com/package/bcrypt) - Password hashing
+- [dotenv](https://www.npmjs.com/package/dotenv) - Environment variables
+- [pg](https://www.npmjs.com/package/pg) - PostgreSQL client voor Node.js
+
+### Database hosting
+- [Neon.tech](https://neon.tech) - Serverless PostgreSQL hosting platform
 
