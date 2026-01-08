@@ -41,7 +41,7 @@ backend-api/
 ### 1. Repository clonen  
 ```bash
 git clone https://github.com/BaTaNav/GasLog-BackendWeb.git
-cd GasLog/backend-api
+cd GasLog-BackendWeb
 ```
 
 ### 2. Dependencies installeren
@@ -63,9 +63,8 @@ PORT=3000
 
 ### 5. Server starten
 ```bash
+npm install
 npm start
-# Of voor development met auto-reload
-npm run dev
 ```
 
 ## Database
@@ -294,4 +293,7 @@ Tijdens de ontwikkeling van dit project zijn de volgende bronnen geraadpleegd:
 
 ### Database hosting
 - [Neon.tech](https://neon.tech) - Serverless PostgreSQL hosting platform
+
+### AI
+- styling van de index pagina is met ai gemaakt
 
