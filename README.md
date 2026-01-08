@@ -40,7 +40,7 @@ backend-api/
 
 ### 1. Repository clonen  
 ```bash
-git clone https://github.com/[username]/GasLog.git
+git clone https://github.com/BaTaNav/GasLog-BackendWeb.git
 cd GasLog/backend-api
 ```
 
