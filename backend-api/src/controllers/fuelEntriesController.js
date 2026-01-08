@@ -56,7 +56,7 @@ export const getAllFuelEntries = async (req, res) => {
         liters,
         price_per_liter,
         odometer,
-        (liters * price_per_liter) AS total_amount,
+        total_amount,
         created_at
       FROM fuel_entries
       ${whereSQL}
@@ -97,7 +97,7 @@ export const getFuelEntryById = async (req, res) => {
         liters,
         price_per_liter,
         odometer,
-        (liters * price_per_liter) AS total_amount,
+        total_amount,
         created_at
       FROM fuel_entries
       WHERE id = $1
@@ -152,12 +152,12 @@ export const createFuelEntry = async (req, res) => {
   }
 
   try {
-    console.log('Creating fuel entry:', { car_id, user_id, date, litersNum, priceNum, odoNum });
+    const totalAmount = litersNum * priceNum;
     const result = await pool.query(
       `
       INSERT INTO fuel_entries
-        (car_id, user_id, date, liters, price_per_liter, odometer)
-      VALUES ($1, $2, $3, $4, $5, $6)
+        (car_id, user_id, date, liters, price_per_liter, odometer, total_amount)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
       RETURNING
         id,
         car_id,
@@ -166,10 +166,10 @@ export const createFuelEntry = async (req, res) => {
         liters,
         price_per_liter,
         odometer,
-        (liters * price_per_liter) AS total_amount,
+        total_amount,
         created_at
       `,
-      [car_id, user_id, date, litersNum, priceNum, odoNum]
+      [car_id, user_id, date, litersNum, priceNum, odoNum, totalAmount]
     );
 
     res.status(201).json(result.rows[0]);
@@ -218,22 +218,32 @@ export const updateFuelEntry = async (req, res) => {
     let query = 'UPDATE fuel_entries SET ';
     const values = [];
     let idx = 1;
+    let litersParam = null;
+    let priceParam = null;
 
     if (date) {
       query += `date = $${idx++}, `;
       values.push(date);
     }
     if (litersNum != null) {
+      litersParam = idx;
       query += `liters = $${idx++}, `;
       values.push(litersNum);
     }
     if (priceNum != null) {
+      priceParam = idx;
       query += `price_per_liter = $${idx++}, `;
       values.push(priceNum);
     }
     if (odoNum != null) {
       query += `odometer = $${idx++}, `;
       values.push(odoNum);
+    }
+
+    if (litersNum != null || priceNum != null) {
+      const litersExpr = litersParam ? `CAST($${litersParam} AS numeric)` : 'liters';
+      const priceExpr = priceParam ? `CAST($${priceParam} AS numeric)` : 'price_per_liter';
+      query += `total_amount = ${litersExpr} * ${priceExpr}, `;
     }
 
     query = query.slice(0, -2); // laatste comma verwijderen
@@ -247,7 +257,7 @@ export const updateFuelEntry = async (req, res) => {
         liters,
         price_per_liter,
         odometer,
-        (liters * price_per_liter) AS total_amount,
+        total_amount,
         created_at
     `;
     values.push(id);

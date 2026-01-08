@@ -1,6 +1,6 @@
 # GasLog Backend API
 
-Backend API voor het beheren van gebruikers, auto’s en tankbeurten (fuel entries).  
+Backend API voor het beheren van gebruikers, auto's en tankbeurten (fuel entries).  
 Gebouwd met Node.js, Express en PostgreSQL (Neon).
 
 ## Technische stack
@@ -44,21 +44,7 @@ git clone https://github.com/[username]/GasLog.git
 cd GasLog/backend-api
 ```
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-2.  **Dependencies installeren:**
-    ```bash
-    npm install
-    ```
-
-3. Environment variables
-Maak een .env bestand aan in de root van de `backend-api` map:
-=======
 ### 2. Dependencies installeren
->>>>>>> Stashed changes
-=======
-### 2. Dependencies installeren
->>>>>>> Stashed changes
 ```bash
 npm install
 ```
@@ -69,53 +55,18 @@ Maak een `.env` bestand aan in de `backend-api` folder:
 DATABASE_URL=postgresql://<user>:<password>@<host>/<database>
 PORT=3000
 ```
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
-
-> **Opmerking**: Voor Neon database, kopieer de connection string van je Neon dashboard.
+> Tip: gebruik in Neon de connection string uit je dashboard.
 
 ### 4. Database setup
-Voer het schema uit in je PostgreSQL database:
-```bash
-# Het schema staat in: backend-api/sql/schema.sql
-# Voer dit uit in je database tool (pgAdmin, Neon console, etc.)
-```
+- Maak een PostgreSQL database aan (bijvoorbeeld via [Neon.tech](https://neon.tech))
+- Voer het schema uit: inhoud van `backend-api/sql/schema.sql` uitvoeren in je DB (Neon console, psql of een GUI).
 
 ### 5. Server starten
 ```bash
 npm start
-# Of voor development met auto-reload:
+# Of voor development met auto-reload
 npm run dev
 ```
->>>>>>> Stashed changes
-
-> **Opmerking**: Voor Neon database, kopieer de connection string van je Neon dashboard.
-
-### 4. Database setup
-Voer het schema uit in je PostgreSQL database:
-```bash
-# Het schema staat in: backend-api/sql/schema.sql
-# Voer dit uit in je database tool (pgAdmin, Neon console, etc.)
-```
-
-### 5. Server starten
-```bash
-npm start
-# Of voor development met auto-reload:
-npm run dev
-```
->>>>>>> Stashed changes
-
-4. Database setup
-   - Maak een PostgreSQL database aan (bijvoorbeeld via [Neon.tech](https://neon.tech))
-   - Voer het database schema uit:
-     ```bash
-     # Kopieer de inhoud van backend-api/sql/schema.sql
-     # Voer dit uit in je database console (bijv. Neon SQL Editor)
-     ```
-   - Of gebruik een PostgreSQL client om het bestand uit te voeren
 
 ## Database
 
