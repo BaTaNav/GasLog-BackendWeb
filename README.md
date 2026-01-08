@@ -45,6 +45,7 @@ cd GasLog/backend-api
 ```
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 2.  **Dependencies installeren:**
     ```bash
     npm install
@@ -52,6 +53,9 @@ cd GasLog/backend-api
 
 3. Environment variables
 Maak een .env bestand aan in de root van de `backend-api` map:
+=======
+### 2. Dependencies installeren
+>>>>>>> Stashed changes
 =======
 ### 2. Dependencies installeren
 >>>>>>> Stashed changes
@@ -66,7 +70,26 @@ DATABASE_URL=postgresql://<user>:<password>@<host>/<database>
 PORT=3000
 ```
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+
+> **Opmerking**: Voor Neon database, kopieer de connection string van je Neon dashboard.
+
+### 4. Database setup
+Voer het schema uit in je PostgreSQL database:
+```bash
+# Het schema staat in: backend-api/sql/schema.sql
+# Voer dit uit in je database tool (pgAdmin, Neon console, etc.)
+```
+
+### 5. Server starten
+```bash
+npm start
+# Of voor development met auto-reload:
+npm run dev
+```
+>>>>>>> Stashed changes
 
 > **Opmerking**: Voor Neon database, kopieer de connection string van je Neon dashboard.
 
